@@ -1,19 +1,17 @@
-# variable "aws_region" {
-#   type = string
-#   default = "ap-east-1"
-# }
+resource "aws_s3_bucket" "evan" {
+  bucket = "evan-example-bucket-for-terraform"
+}
 
-
-#bucket 1
-resource "aws_s3_bucket" "for_each_demo" {
-  for_each = var.bucket_names
-  bucket =each.value
-
-  tags   = {
-    Name = " ${each.key}-dev-buckups"
-    Environment = "Dev"
+resource "aws_s3_bucket_ownership_controls" "example" {
+  bucket = aws_s3_bucket.evan.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
   }
 }
 
+resource "aws_s3_bucket_acl" "example" {
 
-
+  bucket = aws_s3_bucket.evan.id
+  acl = "private"
+  
+}
