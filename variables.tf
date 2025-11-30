@@ -1,3 +1,31 @@
+variable "buckets_east" {
+  type =  map(string)
+  default = {
+    "backup-bucket" = "evan-data-backup-bucket-east"
+    "terraform-bucket" = "evan-terraform-bucket-east"
+  }
+}
+
+variable "buckets_west" {
+  type =  map(string)
+  default = {
+    "backup-bucket" = "evan-data-backup-bucket-west"
+    "terraform-bucket" = "evan-terraform-bucket-west"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 variable "aws_region" {
   type = string
   default = "ap-east-1"
