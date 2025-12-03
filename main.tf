@@ -1,23 +1,22 @@
-
 resource "aws_s3_bucket" "east" {
-  for_each =  var.buckets_east
-  bucket = each.value
+  bucket = "evan-example-bucket-for-terraform"
 
   tags = {
-    Name = "${each.key}-prod-buckets"
-    Enviroment = "prod"
+    Enviroment = "production"
+    CreatedBy = "terraform"
+  }
+  lifecycle {
+    ignore_changes = [ tags ]
+  }
+}
+
+resource "aws_s3_bucket_ownership_controls" "example" {
+  bucket = aws_s3_bucket.evan.id
+  rule {
+     object_ownership = "BucketOwnerPreferred"
   }
 }
 
 
-resource "aws_s3_bucket" "west" {
-  provider = aws.west 
-  for_each = var.buckets_west
-  bucket = each.value
 
-  tags = {
-    Name = "${each.key}-prod-buckets"
-    Enviroment = "prod"
-  }
-}
 
